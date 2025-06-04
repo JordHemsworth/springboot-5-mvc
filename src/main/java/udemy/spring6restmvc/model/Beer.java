@@ -1,4 +1,4 @@
-package model;
+package udemy.spring6restmvc.model;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package service;
+package udemy.spring6restmvc.service;
 
-import model.Beer;
+import udemy.spring6restmvc.model.Beer;
 
 import java.util.UUID;
 
