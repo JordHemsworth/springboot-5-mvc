@@ -16,7 +16,7 @@ public class BeerController {
 
     public Beer getBeerById(UUID id){
 
-        log.debug("Get Beer ID in service was called");
+        log.debug("Get Beer ID in controller");
 
         return beerService.getBeerById(id);
     }
