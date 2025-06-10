@@ -2,6 +2,7 @@ package udemy.spring6restmvc.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import udemy.spring6restmvc.model.Customer;
 
 import java.time.LocalDate;
@@ -87,5 +88,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustById(UUID existingCustomerId, Customer customer) {
         customerMap.remove(existingCustomerId);
+    }
+
+    @Override
+    public void patchCustById(UUID existingCustomerId, Customer customer) {
+        Customer existingCustomer = customerMap.get(existingCustomerId);
+
+        if (StringUtils.hasLength(customer.getCustomerName())) {
+            existingCustomer.setCustomerName(customer.getCustomerName());
+        }
+
     }
 }
