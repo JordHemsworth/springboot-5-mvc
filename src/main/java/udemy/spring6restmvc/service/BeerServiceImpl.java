@@ -1,6 +1,7 @@
 package udemy.spring6restmvc.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import udemy.spring6restmvc.model.Beer;
 import udemy.spring6restmvc.model.BeerStyle;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ public class BeerServiceImpl implements BeerService {
 
     public BeerServiceImpl() {
         this.beerMap = new HashMap<>();
-
 
 
         Beer beer1 = Beer.builder()
@@ -76,7 +76,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public List<Beer> listBeers(){
+    public List<Beer> listBeers() {
         return new ArrayList<>(beerMap.values());
     }
 
@@ -120,5 +120,32 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public void deleteBeer(UUID beerId, Beer beer) {
         beerMap.remove(beerId);
+    }
+
+    @Override
+    public void patchBeerById(UUID beerId, Beer beer) {
+        Beer existingBeer = beerMap.get(beerId);
+
+        if (StringUtils.hasText(beer.getBeerName())) {
+            existingBeer.setBeerName(beer.getBeerName());
+        }
+
+        if (beer.getBeerStyle() != null) {
+            existingBeer.setBeerStyle(beer.getBeerStyle());
+        }
+
+        if (beer.getPrice() != null) {
+            existingBeer.setPrice(beer.getPrice());
+        }
+
+        if (beer.getQuantityOnHand() != null) {
+            existingBeer.setQuantityOnHand(beer.getQuantityOnHand());
+        }
+
+        if (StringUtils.hasText(beer.getUpc())) {
+            existingBeer.setUpc(beer.getUpc());
+        }
+
+
     }
 }
