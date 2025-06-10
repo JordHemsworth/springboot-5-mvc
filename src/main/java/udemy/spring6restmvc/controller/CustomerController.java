@@ -2,10 +2,10 @@ package udemy.spring6restmvc.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import udemy.spring6restmvc.model.Customer;
 import udemy.spring6restmvc.service.CustomerService;
 
@@ -28,6 +28,17 @@ public class CustomerController {
     @RequestMapping(value = "{customerId}", method = RequestMethod.GET)
     public Customer getCustomerById(@PathVariable("customerId") UUID customerId) {
         return customerService.getCustomerById(customerId);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Customer> handleCustomerPost(@RequestBody Customer customer) {
+        Customer savedNewCustomer = customerService.saveNewCustomer(customer);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/api/v1/beer/newCust" + savedNewCustomer.getId().toString());
+
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
 
