@@ -30,6 +30,16 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
+    @PutMapping("{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") UUID existingCustomerId, @RequestBody Customer customer) {
+
+      customerService.updateCustById(existingCustomerId, customer);
+
+
+        return new ResponseEntity<>(customer, HttpStatus.NO_CONTENT);
+
+    }
+
 
     @PostMapping
     public ResponseEntity<Customer> handleCustomerPost(@RequestBody Customer customer) {
