@@ -41,6 +41,13 @@ public class BeerController {
         return beerService.getBeerById(beerId);
     }
 
+    @DeleteMapping("{beerId}")
+    public ResponseEntity<Beer> deleteBeerById(@PathVariable("beerId") UUID beerId, @RequestBody Beer beer){
+        beerService.deleteBeer(beerId, beer);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping
     public ResponseEntity<Beer> handlePost(@RequestBody Beer beer){
         Beer savedBeer = beerService.saveNewBeer(beer);

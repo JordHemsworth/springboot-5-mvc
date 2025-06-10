@@ -116,4 +116,9 @@ public class BeerServiceImpl implements BeerService {
         existingBeer.setUpc(beer.getUpc());
         existingBeer.setPrice(beer.getPrice());
     }
+
+    @Override
+    public void deleteBeer(UUID beerId, Beer beer) {
+        beerMap.remove(beerId);
+    }
 }
