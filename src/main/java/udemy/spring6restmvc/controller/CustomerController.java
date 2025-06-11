@@ -41,10 +41,10 @@ public class CustomerController {
     }
 
     @DeleteMapping("{customerId}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") UUID existingCustomerId, @RequestBody Customer customer) {
-        customerService.deleteCustById(existingCustomerId, customer);
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") UUID existingCustomerId) {
+        customerService.deleteCustById(existingCustomerId);
 
-        return new ResponseEntity<>(customer, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

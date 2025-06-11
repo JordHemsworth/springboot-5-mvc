@@ -118,7 +118,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void deleteBeer(UUID beerId, Beer beer) {
+    public void deleteBeerById(UUID beerId) {
         beerMap.remove(beerId);
     }
 

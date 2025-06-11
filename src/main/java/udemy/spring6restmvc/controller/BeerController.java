@@ -50,8 +50,8 @@ public class BeerController {
     }
 
     @DeleteMapping("{beerId}")
-    public ResponseEntity<Beer> deleteBeerById(@PathVariable("beerId") UUID beerId, @RequestBody Beer beer){
-        beerService.deleteBeer(beerId, beer);
+    public ResponseEntity<Beer> deleteBeerById(@PathVariable("beerId") UUID beerId){
+        beerService.deleteBeerById(beerId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
