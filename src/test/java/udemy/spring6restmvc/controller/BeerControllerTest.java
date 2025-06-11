@@ -17,6 +17,7 @@ import udemy.spring6restmvc.service.BeerServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -59,7 +60,7 @@ class BeerControllerTest {
 
         Beer testBeer = beerServiceImpl.listBeers().getFirst();
 
-        given(beerService.getBeerById(testBeer.getId())).willReturn(testBeer);       //Configure Mockito to return testBeer
+        given(beerService.getBeerById(testBeer.getId())).willReturn(Optional.of(testBeer));       //Configure Mockito to return testBeer
 
         mockMvc.perform(get(BeerController.BEER_PATH_ID, testBeer.getId())          //Get random beer by ID and should return 200
                         .accept(MediaType.APPLICATION_JSON))
@@ -144,5 +145,14 @@ class BeerControllerTest {
         assertThat(testBeer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
         assertThat(beerMap.get("beerName")).isEqualTo(beerArgumentCaptor.getValue().getBeerName());
 
+    }
+
+    @Test
+    void getBeerByIdNotFound() throws Exception {
+
+        given(beerService.getBeerById(any(UUID.class))).willReturn(Optional.empty());
+
+        mockMvc.perform(get(BeerController.BEER_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
     }
 }

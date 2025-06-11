@@ -42,7 +42,7 @@ public class BeerController {
 
         log.debug("Get one million beers by Id - Controller");
 
-        return beerService.getBeerById(beerId);
+        return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
 
     @PatchMapping(BEER_PATH_ID)
