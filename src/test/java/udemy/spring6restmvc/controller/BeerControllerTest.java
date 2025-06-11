@@ -10,7 +10,6 @@ import udemy.spring6restmvc.model.Beer;
 import udemy.spring6restmvc.service.BeerService;
 import udemy.spring6restmvc.service.BeerServiceImpl;
 
-import java.util.UUID;
 
 
 import static org.hamcrest.core.Is.is;
@@ -18,7 +17,6 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//@SpringBootTest
 
 @WebMvcTest(BeerController.class)
 class BeerControllerTest {
