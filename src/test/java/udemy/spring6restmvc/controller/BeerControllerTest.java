@@ -61,7 +61,7 @@ class BeerControllerTest {
 
         given(beerService.getBeerById(testBeer.getId())).willReturn(testBeer);       //Configure Mockito to return testBeer
 
-        mockMvc.perform(get("/api/v1/beer/" + testBeer.getId())          //Get random beer by ID and should return 200
+        mockMvc.perform(get(BeerController.BEER_PATH_ID, testBeer.getId())          //Get random beer by ID and should return 200
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -73,7 +73,7 @@ class BeerControllerTest {
     void testListBeers() throws Exception {
         given(beerService.listBeers()).willReturn(beerServiceImpl.listBeers());
 
-        mockMvc.perform(get("/api/v1/beer")
+        mockMvc.perform(get(BeerController.BEER_PATH)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -102,7 +102,7 @@ class BeerControllerTest {
     void testUpdateBeer() throws Exception {
         Beer testBeer = beerServiceImpl.listBeers().getFirst();
 
-        mockMvc.perform(put(BeerController.BEER_PATH + "/" + testBeer.getId())
+        mockMvc.perform(put(BeerController.BEER_PATH_ID, testBeer.getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testBeer)))
@@ -117,7 +117,7 @@ class BeerControllerTest {
     void testDeleteBeer() throws Exception {
         Beer testBeer = beerServiceImpl.listBeers().getFirst();
 
-        mockMvc.perform(delete(BeerController.BEER_PATH + "/" + testBeer.getId())
+        mockMvc.perform(delete(BeerController.BEER_PATH_ID, testBeer.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -133,7 +133,7 @@ class BeerControllerTest {
         Map<String, Object> beerMap = new HashMap<>();
         beerMap.put("beerName", "New Name");            //Mock json that would be sent
 
-        mockMvc.perform(patch(BeerController.BEER_PATH + "/" + testBeer.getId())
+        mockMvc.perform(patch(BeerController.BEER_PATH_ID, testBeer.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beerMap)))
