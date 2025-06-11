@@ -89,7 +89,7 @@ class BeerControllerTest {
 
         given(beerService.saveNewBeer(any(Beer.class))).willReturn(beerServiceImpl.listBeers().get(1));     //Return 1 to save setting up data, but result is same
 
-        mockMvc.perform(post("/api/v1/beer")
+        mockMvc.perform(post(BeerController.BEER_PATH)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beer)))
@@ -102,7 +102,7 @@ class BeerControllerTest {
     void testUpdateBeer() throws Exception {
         Beer testBeer = beerServiceImpl.listBeers().getFirst();
 
-        mockMvc.perform(put("/api/v1/beer/" + testBeer.getId())
+        mockMvc.perform(put(BeerController.BEER_PATH + "/" + testBeer.getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testBeer)))
@@ -117,7 +117,7 @@ class BeerControllerTest {
     void testDeleteBeer() throws Exception {
         Beer testBeer = beerServiceImpl.listBeers().getFirst();
 
-        mockMvc.perform(delete("/api/v1/beer/" + testBeer.getId())
+        mockMvc.perform(delete(BeerController.BEER_PATH + "/" + testBeer.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -133,7 +133,7 @@ class BeerControllerTest {
         Map<String, Object> beerMap = new HashMap<>();
         beerMap.put("beerName", "New Name");            //Mock json that would be sent
 
-        mockMvc.perform(patch("/api/v1/beer/" + testBeer.getId())
+        mockMvc.perform(patch(BeerController.BEER_PATH + "/" + testBeer.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beerMap)))
